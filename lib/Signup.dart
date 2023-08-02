@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatefulWidget {
+  const SignUp({super.key});
+
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late String _name, _email, _password;
@@ -24,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentication();
+    checkAuthentication();
   }
 
   signUp() async {
@@ -34,14 +36,7 @@ class _SignUpState extends State<SignUp> {
       try {
         UserCredential user = await _auth.createUserWithEmailAndPassword(
             email: _email, password: _password);
-        if (user != null) {
-          // UserUpdateInfo updateuser = UserUpdateInfo();
-          // updateuser.displayName = _name;
-          //  user.updateProfile(updateuser);
-          await _auth.currentUser?.updateProfile(displayName: _name);
-          // await Navigator.pushReplacementNamed(context,"/") ;
-
-        }
+        await _auth.currentUser?.updateProfile(displayName: _name);
       } catch (e) {
         // showError(e.message);
         print(e);
@@ -54,20 +49,20 @@ class _SignUpState extends State<SignUp> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('ERROR'),
+            title: const Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'))
+                  child: const Text('OK'))
             ],
           );
         });
   }
   navigateToLogin() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
   }
   @override
   Widget build(BuildContext context) {
@@ -76,16 +71,16 @@ class _SignUpState extends State<SignUp> {
           child: Container(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 35.0),
-                Container(
+                const SizedBox(height: 35.0),
+                const SizedBox(
                   height: 70,
                   child: Image(
                     image: AssetImage("images/logouni.png"),
                     fit: BoxFit.contain,
                   ),
                 ),
-                SizedBox(height: 20),
-                Container(
+                const SizedBox(height: 20),
+                const SizedBox(
                   height: 250,
                   child: Image(
                     image: AssetImage("images/logo.png"),
@@ -105,8 +100,9 @@ class _SignUpState extends State<SignUp> {
                             child: TextFormField(
                                 validator: (input) {
                                   if (input!.isEmpty) return 'Enter Name';
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Name',
                                   prefixIcon: Icon(Icons.person),
                                 ),
@@ -116,8 +112,9 @@ class _SignUpState extends State<SignUp> {
                             child: TextFormField(
                                 validator: (input) {
                                   if (input!.isEmpty) return 'Enter Email';
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: 'Email',
                                     prefixIcon: Icon(Icons.email)),
                                 onSaved: (input) => _email = input!),
@@ -125,17 +122,20 @@ class _SignUpState extends State<SignUp> {
                           Container(
                             child: TextFormField(
                                 validator: (input) {
-                                  if (input!.length < 6)
+                                  if (input!.length < 6) {
                                     return 'Provide Minimum 6 Character';
+                                  return null;
+                                  }
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Password',
                                   prefixIcon: Icon(Icons.lock),
                                 ),
                                 obscureText: true,
                                 onSaved: (input) => _password = input!),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           ElevatedButton(
                             style: ButtonStyle(shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -145,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                             // padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
                             onPressed: signUp,
-                            child: Text('SIGN UP',
+                            child: const Text('SIGN UP',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0,
@@ -155,10 +155,10 @@ class _SignUpState extends State<SignUp> {
                             //   borderRadius: BorderRadius.circular(20.0),
                             // ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           GestureDetector(
-                            child: Text('Click here to login!',style: TextStyle(fontSize: 15),),
                             onTap: navigateToLogin,
+                            child: const Text('Click here to login!',style: TextStyle(fontSize: 15),),
                           )
                         ],
                       ),

@@ -1,4 +1,3 @@
-import 'package:mfieldtrip/CreateFieldTrip.dart';
 import 'package:mfieldtrip/Login.dart';
 import 'package:mfieldtrip/Signup.dart';
 import 'package:mfieldtrip/Start.dart';
@@ -16,10 +15,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return
@@ -29,14 +30,14 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.lightGreen,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
 
       routes: <String,WidgetBuilder>{
 
-        "Login" : (BuildContext context)=>Login(),
-        "SignUp":(BuildContext context)=>SignUp(),
-        "start":(BuildContext context)=>Start(),
-        "createFieldTrip":(BuildContext context)=>CreateFieldTrip(),
+        "Login" : (BuildContext context)=>const Login(),
+        "SignUp":(BuildContext context)=>const SignUp(),
+        "start":(BuildContext context)=>const Start(),
+        "createFieldTrip":(BuildContext context)=>const CreateFieldTrip(),
       },
 
     );

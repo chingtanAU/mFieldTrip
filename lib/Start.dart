@@ -16,11 +16,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:mfieldtrip/Login.dart';
-import 'SignUp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Start extends StatefulWidget {
+  const Start({super.key});
+
   @override
   _StartState createState() => _StartState();
 }
@@ -47,8 +47,9 @@ class _StartState extends State<Start> {
       } else {
         throw StateError('Missing Google Auth Token');
       }
-    } else
+    } else {
       throw StateError('Sign in Aborted');
+    }
   }
 
   navigateToLogin() async {
@@ -65,25 +66,25 @@ class _StartState extends State<Start> {
       body: Container(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 45.0),
-            Container(
+            const SizedBox(height: 45.0),
+            const SizedBox(
               height: 80,
               child: Image(
                 image: AssetImage("images/logouni.png"),
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(height: 40),
-            Container(
+            const SizedBox(height: 40),
+            const SizedBox(
               height: 200,
               child: Image(
                 image: AssetImage("images/logo.png"),
                 fit: BoxFit.contain,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             RichText(
-                text: TextSpan(
+                text: const TextSpan(
                     text: 'Welcome to ',
                     style: TextStyle(
                         fontSize: 25.0,
@@ -99,7 +100,7 @@ class _StartState extends State<Start> {
                     ])),
             //
 
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -113,7 +114,7 @@ class _StartState extends State<Start> {
                     
                     // padding: EdgeInsets.only(left: 30, right: 30),
                     onPressed: navigateToLogin,
-                    child: Text(
+                    child: const Text(
                       'LOGIN',
                       style: TextStyle(
                         fontSize: 20,
@@ -125,7 +126,7 @@ class _StartState extends State<Start> {
                     // shape: RoundedRectangleBorder(
                     //   borderRadius: BorderRadius.circular(10.0),
                     // ),
-                SizedBox(width: 20.0),
+                const SizedBox(width: 20.0),
                 ElevatedButton(
                   style: ButtonStyle(shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -135,7 +136,7 @@ class _StartState extends State<Start> {
                     ),
                     // padding: EdgeInsets.only(left: 30, right: 30),
                     onPressed: navigateToRegister,
-                    child: Text(
+                    child: const Text(
                       'REGISTER',
                       style: TextStyle(
                         fontSize: 20,
@@ -150,7 +151,7 @@ class _StartState extends State<Start> {
                     // color: Colors.lightGreen),
               ],
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             SignInButton(Buttons.Google,
                 text: "Sign up with Google", onPressed: googleSignIn)
           ],

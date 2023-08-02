@@ -10,83 +10,83 @@ class SepFieldTrips extends StatelessWidget {
   const SepFieldTrips({Key? key, required this.documentSnapshot}) : super(key: key);
   _getApplicablePeriod(List visitingPeriod) {
     String period;
-    int fall_count=0;
-    int spring_count=0;
-    int summer_count=0;
-    int  winter_count=0;
+    int fallCount=0;
+    int springCount=0;
+    int summerCount=0;
+    int  winterCount=0;
     int l=visitingPeriod.length;
     for(int i=0;i<visitingPeriod.length;i++){
     if((l==2 && visitingPeriod[i]=='Spring' && visitingPeriod[i+1]=='Summer')|| (l==2 && visitingPeriod[i]=='Summer' && visitingPeriod[i+1]=='Spring')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/spring_summer.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/spring_summer.png"), fit: BoxFit.fill,);
     }
     else if((l==2 && visitingPeriod[i]=='Fall' && visitingPeriod[i+1]=='Winter')|| (l==2 && visitingPeriod[i]=='Winter' && visitingPeriod[i+1]=='Fall')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/winter_fall.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/winter_fall.png"), fit: BoxFit.fill,);
     }
     else if((l==2 && visitingPeriod[i]=='Spring' && visitingPeriod[i+1]=='Fall')|| (l==2 && visitingPeriod[i]=='Fall' && visitingPeriod[i+1]=='Spring')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/spring_fall.png"),fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/spring_fall.png"),fit: BoxFit.fill,);
     }
     else if((l==2 && visitingPeriod[i]=='Spring' && visitingPeriod[i+1]=='Winter')|| (l==2 && visitingPeriod[i]=='Winter' && visitingPeriod[i+1]=='Spring')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/spring_winter.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/spring_winter.png"), fit: BoxFit.fill,);
     }
     else if((l==2 && visitingPeriod[i]=='Fall' && visitingPeriod[i+1]=='Summer')|| (l==2 && visitingPeriod[i]=='Summer' && visitingPeriod[i+1]=='Fall')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/summer_fall.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/summer_fall.png"), fit: BoxFit.fill,);
     }
     else if((l==2 && visitingPeriod[i]=='Winter' && visitingPeriod[i+1]=='Summer')|| (l==2 && visitingPeriod[i]=='Summer' && visitingPeriod[i+1]=='Winter')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/summer_winter.png"),  fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/summer_winter.png"),  fit: BoxFit.fill,);
     }
     else if((l==1 && visitingPeriod[i]=='Spring')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/spring.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/spring.png"), fit: BoxFit.fill,);
     }
     else if((l==1 && visitingPeriod[i]=='Summer')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/summer.png"),  fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/summer.png"),  fit: BoxFit.fill,);
     }
     else if((l==1 && visitingPeriod[i]=='Winter')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/winter.png"), fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/winter.png"), fit: BoxFit.fill,);
     }
     else if((l==1 && visitingPeriod[i]=='Fall')){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/fall.png"),  fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/fall.png"),  fit: BoxFit.fill,);
     }
     else if((l==3 && visitingPeriod[i]!='Fall')){
-      fall_count++;
+      fallCount++;
     }
     else if((l==3 && visitingPeriod[i]!='Winter')){
-      winter_count++;
+      winterCount++;
     }
     else if((l==3 && visitingPeriod[i]!='Summer')){
-      summer_count++;
+      summerCount++;
     }
     else if((l==3 && visitingPeriod[i]!='Spring')){
-      spring_count++;
+      springCount++;
     }
     else{
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/all_year.png"),  fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/all_year.png"),  fit: BoxFit.fill,);
     }
     }
-    if(spring_count==3){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/no_spring.png"),  fit: BoxFit.fill,);
+    if(springCount==3){
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/no_spring.png"),  fit: BoxFit.fill,);
     }
-    if(summer_count==3){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/no_summer.png"), fit: BoxFit.fill,);
+    if(summerCount==3){
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/no_summer.png"), fit: BoxFit.fill,);
     }
-    if(fall_count==3){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/no_fall.png"),  fit: BoxFit.fill,);
+    if(fallCount==3){
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/no_fall.png"),  fit: BoxFit.fill,);
     }
-    if(winter_count==3){
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/no_winter.png"),  fit: BoxFit.fill,);
+    if(winterCount==3){
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/no_winter.png"),  fit: BoxFit.fill,);
     }
     else{
-      return Image(image: AssetImage("images/mfieldtrip_icons_images/all_year.png"),  fit: BoxFit.fill,);
+      return const Image(image: AssetImage("images/mfieldtrip_icons_images/all_year.png"),  fit: BoxFit.fill,);
 
     }
   }
     _getApplicableDuration(String duration) {
     switch (duration) {
       case "one day or less":
-        return Image(image: AssetImage('images/mfieldtrip_icons_images/duration_one.png'), fit: BoxFit.fill,);
+        return const Image(image: AssetImage('images/mfieldtrip_icons_images/duration_one.png'), fit: BoxFit.fill,);
       case "two to four days":
-        return Image(image: AssetImage('images/mfieldtrip_icons_images/duration_two.png'),  fit: BoxFit.fill,);
+        return const Image(image: AssetImage('images/mfieldtrip_icons_images/duration_two.png'),  fit: BoxFit.fill,);
       default:
-        return Image(image: AssetImage('images/mfieldtrip_icons_images/duration_four.png'), fit: BoxFit.fill,);
+        return const Image(image: AssetImage('images/mfieldtrip_icons_images/duration_four.png'), fit: BoxFit.fill,);
     }
   }
 
@@ -101,7 +101,7 @@ _getImages(List images){
 }
 
     Widget buildImages(String image,int index)=>Container(
-      margin: EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       color: Colors.grey,
       child: Image.network(image,fit: BoxFit.cover,),
     );
@@ -120,9 +120,9 @@ _getImages(List images){
           title:
           ListTile(
             title:
-            Text(documentSnapshot['title'], style: TextStyle(color:Colors.white, fontSize: 25)),
+            Text(documentSnapshot['title'], style: const TextStyle(color:Colors.white, fontSize: 25)),
             subtitle:
-            Text(documentSnapshot['trip offered by'], style: TextStyle(color:Colors.white)),
+            Text(documentSnapshot['trip offered by'], style: const TextStyle(color:Colors.white)),
           )
       ),
 
@@ -157,13 +157,13 @@ _getImages(List images){
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Author", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          const Text("Author", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                           Text(documentSnapshot['author'],),
                         ],
                       ),
                     ),
                   ),
-                ): Gap(3),
+                ): const Gap(3),
                 Card(
                  
                   child: Padding(
@@ -188,25 +188,25 @@ _getImages(List images){
                           SizedBox(width: size.width*0.14, child: _getApplicablePeriod(documentSnapshot['visiting period']),),
                           SizedBox(
                             width: size.width*0.14,
-                            child: documentSnapshot['is access limited']==true ?  Image(image: AssetImage('images/mfieldtrip_icons_images/limited_access.png'), fit: BoxFit.fill,) : Image(image: AssetImage('images/mfieldtrip_icons_images/limited_access.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,)),
+                            child: documentSnapshot['is access limited']==true ?  const Image(image: AssetImage('images/mfieldtrip_icons_images/limited_access.png'), fit: BoxFit.fill,) : const Image(image: AssetImage('images/mfieldtrip_icons_images/limited_access.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,)),
                            SizedBox(
                             width: size.width*0.14,
-                            child:documentSnapshot['park or protected area']==true ? Image(image: AssetImage('images/mfieldtrip_icons_images/park.png'), fit: BoxFit.fill,) : Image(image: AssetImage('images/mfieldtrip_icons_images/park.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,),),
+                            child:documentSnapshot['park or protected area']==true ? const Image(image: AssetImage('images/mfieldtrip_icons_images/park.png'), fit: BoxFit.fill,) : const Image(image: AssetImage('images/mfieldtrip_icons_images/park.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,),),
                            SizedBox(
                             width: size.width*0.14,
-                            child:documentSnapshot['any fees']==true ?  Image(image: AssetImage('images/mfieldtrip_icons_images/fees.png'), fit: BoxFit.fill,) : Image(image: AssetImage('images/mfieldtrip_icons_images/fees.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,),),
+                            child:documentSnapshot['any fees']==true ?  const Image(image: AssetImage('images/mfieldtrip_icons_images/fees.png'), fit: BoxFit.fill,) : const Image(image: AssetImage('images/mfieldtrip_icons_images/fees.png'), colorBlendMode: BlendMode.darken,  fit: BoxFit.fill,),),
                           SizedBox(
                            width: size.width*0.14,
                             child: Stack(
       children: <Widget>[
         Container(
           alignment: Alignment.center,
-          child: Image(image: AssetImage('images/mfieldtrip_icons_images/distance.png'), fit: BoxFit.fill,),),
+          child: const Image(image: AssetImage('images/mfieldtrip_icons_images/distance.png'), fit: BoxFit.fill,),),
         Container(
             alignment: Alignment.center,
             child: Text(
               documentSnapshot['distance']+' KM',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),)),],),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),)),],),
                           ),
                       ],
                       ),
@@ -221,7 +221,7 @@ _getImages(List images){
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Level", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          const Text("Level", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                           Text(documentSnapshot['level'],),
                         ],
                       ),
@@ -236,7 +236,7 @@ _getImages(List images){
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Category", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          const Text("Category", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                           Text(documentSnapshot['category'],),
                         ],
                       ),
@@ -251,7 +251,7 @@ _getImages(List images){
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Duration", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          const Text("Duration", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                           Text(documentSnapshot['duration'],),
                         ],
                       ),

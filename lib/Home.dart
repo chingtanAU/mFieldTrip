@@ -6,9 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mfieldtrip/ss.dart';
-import 'CreateFieldTrip.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -35,8 +36,8 @@ class _HomePageState extends State<HomePage> {
 
     if (firebaseUser != null) {
       setState(() {
-        this.user = firebaseUser!;
-        this.isloggedin = true;
+        user = firebaseUser!;
+        isloggedin = true;
       });
     }
   }
@@ -58,18 +59,18 @@ class _HomePageState extends State<HomePage> {
     await googleSignIn.signOut();
   }
   navigateToCreateFieldTrip() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateFieldTrip()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateFieldTrip()));
   }
 
   navigateToCFieldTrip() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SoloFieldTrip()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const SoloFieldTrip()));
   }
 
   @override
   void initState() {
     super.initState();
-    this.checkAuthentification();
-    this.getUser();
+    checkAuthentification();
+    getUser();
   }
 
   @override
@@ -77,11 +78,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar:
       PreferredSize(
-        preferredSize: Size.fromHeight(55.0),
+        preferredSize: const Size.fromHeight(55.0),
         child: AppBar(
           centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
+          title: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text('meksk',style:
             TextStyle(fontSize: 30.0),),
           ),backgroundColor: Colors.lightGreen,
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
 
           // ],
           ),
-          Padding(padding: const EdgeInsets.symmetric(vertical: 34.0, horizontal: 16.0),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 34.0, horizontal: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -151,8 +152,8 @@ class _HomePageState extends State<HomePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            SizedBox(height: 20),
-            Container(
+            const SizedBox(height: 20),
+            const SizedBox(
 
               height: 150,
               child:
@@ -172,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                     "${user?.displayName}",
                       // "${user.email}",
                     style:
-                    TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -183,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                   // "${user.displayName}"
                       "${user?.email}",
                   style:
-                  TextStyle(fontSize: 10.0),
+                  const TextStyle(fontSize: 10.0),
                 ),
               ),
             ),
@@ -217,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                     ),
             // padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
             onPressed: signOut,
-            child: Text('Signout',
+            child: const Text('Signout',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,

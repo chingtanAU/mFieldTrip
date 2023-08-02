@@ -4,7 +4,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mfieldtrip/utils/app_layout.dart';
@@ -12,7 +11,6 @@ import 'package:mfieldtrip/utils/app_styles.dart';
 import 'package:mfieldtrip/widgets/multiple_selection.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dotted_border/dotted_border.dart';
-
 
 class CreateFieldTrip extends StatefulWidget {
   const CreateFieldTrip({Key? key}) : super(key: key);
@@ -22,24 +20,23 @@ class CreateFieldTrip extends StatefulWidget {
 }
 
 class _CreateFieldTripState extends State<CreateFieldTrip> {
-
   @override
-    List<Widget> itemPhotosWidgetList = <Widget>[];
+  List<Widget> itemPhotosWidgetList = <Widget>[];
 
-  String? ftitle,subtitle, author,description;
+  String? ftitle, subtitle, author, description;
   String? distance;
   String? tripoffered;
   final List<String> tripofferedby = [
     'Athabasca University',
-      'University of Calgary',
-      'University of Biritish Columbia',
-      'Some other',
+    'University of Calgary',
+    'University of Biritish Columbia',
+    'Some other',
   ];
   String? level;
   final List<String> levels = [
     'Primary and Secondary Education(K-12)',
-      'Post Secondary Education(UG LEVEL)',
-      'Post Secondary Education(PG LEVEL)',
+    'Post Secondary Education(UG LEVEL)',
+    'Post Secondary Education(PG LEVEL)',
   ];
   String? category;
   final List<String> categories = [
@@ -48,25 +45,24 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
     'Life Sciences',
     'Physical Sciences',
     'Others',
-
   ];
   String? duration;
   final List<String> durations = [
     'One day or less',
-      'two to four days',
-      'more than four days',
+    'two to four days',
+    'more than four days',
   ];
-    List<String> _VisitPeriods = [];
+  List<String> _VisitPeriods = [];
 
   void _showVisitPeriodOptions() async {
-  final List<String> periods = [
-    'All year',
+    final List<String> periods = [
+      'All year',
       'Summer',
       'Spring',
       'Winter',
       'Fall',
-  ];
-  final List<String>? results = await showDialog(
+    ];
+    final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return MultipleSelection(items: periods);
@@ -82,9 +78,9 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
   }
 
   bool isChecked = false;
-  bool isLimited=false;
-  bool isProtected=false;
-  bool isCharged=false;
+  bool isLimited = false;
+  bool isProtected = false;
+  bool isCharged = false;
 
   final ImagePicker _picker = ImagePicker();
   File? file;
@@ -95,8 +91,8 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
 
   bool uploading = false;
 
-  addFirebaseImages(PickedFile? pickedFile, String productId)async{
-      String? pId = const Uuid().v4();
+  addFirebaseImages(PickedFile? pickedFile, String productId) async {
+    String? pId = const Uuid().v4();
     Reference reference =
         FirebaseStorage.instance.ref().child('images/$productId/image_$pId');
     await reference.putData(
@@ -107,57 +103,53 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
     downloadUrl.add(value);
   }
 
-
-  addFieldtrip() async{
-        String? pId = const Uuid().v4();
-      String ImgId=DateTime.now().microsecondsSinceEpoch.toString();
+  addFieldtrip() async {
+    String? pId = const Uuid().v4();
+    String ImgId = DateTime.now().microsecondsSinceEpoch.toString();
     await FirebaseFirestore.instance.collection('trips').doc(pId).set({
       "id": pId,
       "title": ftitle,
       "subtitle": subtitle,
-      "trip offered by":tripoffered,
-      "author":author,
+      "trip offered by": tripoffered,
+      "author": author,
       "level": level,
-      "category":category,
-      "description":description,
+      "category": category,
+      "description": description,
       "duration": duration,
-      "distance":distance,
+      "distance": distance,
       "visiting period": _VisitPeriods,
-      "need author display":isChecked,
-      "is access limited" :isLimited,
-      "park or protected area":isProtected,
-      "any fees":isCharged,
-      "images":downloadUrl,
-      "created at":ImgId,
+      "need author display": isChecked,
+      "is access limited": isLimited,
+      "park or protected area": isProtected,
+      "any fees": isCharged,
+      "images": downloadUrl,
+      "created at": ImgId,
     });
-     _clearForm();
-        Fluttertoast.showToast(
-          msg: "FieldTrip Added Successfully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-        );
-}
-
- void _clearForm() {
-    ftitle="";
-    subtitle="";
-    tripoffered='Athabasca University';
-    author="";
-    level='Primary and Secondary Education(K-12)';
-    category='Applied Sciences and Technology';
-    description="";
-    duration='One day or less';
-    distance="";
-    _VisitPeriods=[];
-    isChecked=false;
-    isLimited=false;
-    isProtected=false;
-    isCharged=false;
+    _clearForm();
+    Fluttertoast.showToast(
+      msg: "FieldTrip Added Successfully",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+    );
   }
 
-  
-
+  void _clearForm() {
+    ftitle = "";
+    subtitle = "";
+    tripoffered = 'Athabasca University';
+    author = "";
+    level = 'Primary and Secondary Education(K-12)';
+    category = 'Applied Sciences and Technology';
+    description = "";
+    duration = 'One day or less';
+    distance = "";
+    _VisitPeriods = [];
+    isChecked = false;
+    isLimited = false;
+    isProtected = false;
+    isCharged = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,26 +164,28 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
       }
       return Colors.lightGreen;
     }
-    final size=AppLayout.getSize(context);
+
+    final size = AppLayout.getSize(context);
     return Scaffold(
       backgroundColor: primary,
-      appBar:
-      PreferredSize(
-        preferredSize: Size.fromHeight(55.0),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(55.0),
         child: AppBar(
           centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Create FieldTrip', style:
-            TextStyle(fontSize: 20.0),),
-          ), backgroundColor: Colors.lightGreen,
+          title: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Create FieldTrip',
+              style: TextStyle(fontSize: 20.0),
+            ),
+          ),
+          backgroundColor: Colors.lightGreen,
         ),
       ),
       body: Center(
         child: Container(
           color: Colors.white,
-          width: (size.width>600)? 700 : size.width*0.9,
-          
+          width: (size.width > 600) ? 700 : size.width * 0.9,
           child: ListView(
             shrinkWrap: true,
             // fit: StackFit.expand,
@@ -210,18 +204,19 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               labelText: 'Enter title here',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
-                                ),),
-                              labelStyle: TextStyle(
+                                ),
+                              ),
+                              labelStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10.0,
                               ),
@@ -238,18 +233,19 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               labelText: 'Enter Subtitle here',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
-                                ),),
-                              labelStyle: TextStyle(
+                                ),
+                              ),
+                              labelStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10.0,
                               ),
@@ -270,17 +266,18 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
-                                  ),),
+                                  ),
+                                ),
                               ),
                               hint: Padding(
                                 padding: const EdgeInsets.all(11.0),
@@ -289,23 +286,20 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme
-                                        .of(context)
-                                        .hintColor,
+                                    color: Theme.of(context).hintColor,
                                   ),
                                 ),
                               ),
                               items: tripofferedby
-                                  .map((item) =>
-                                  DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ))
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
                                   .toList(),
                               value: tripoffered,
                               onChanged: (value) {
@@ -313,13 +307,12 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   tripoffered = value as String;
                                 });
                               },
-                              buttonHeight: 40,
-                              buttonWidth: 240,
-                              itemHeight: 40,
+                              // buttonHeight: 40,
+                              // buttonWidth: 240,
+                              // itemHeight: 40,
                             ),
                           ),
                         ),
-            
                         Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: TextField(
@@ -327,19 +320,19 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               labelText: 'Author(s)',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 1.0,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
                                 ),
                               ),
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10.0,
                               ),
@@ -352,23 +345,25 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                         Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: Row(
-                                children: [
-                                  Checkbox(
-                                      checkColor: Colors.white,
-                                      fillColor: MaterialStateProperty.resolveWith(
-                                          getColor),
-                                      value: isLimited,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isLimited = value!;
-                                        });
-                                      },
-                                    ),
-                                     Text(
-                                      'Check to display Author information',
-                                      style: Styles.headLineStyle3.copyWith(color: Colors.black),)
-                                ],
+                            children: [
+                              Checkbox(
+                                checkColor: Colors.white,
+                                fillColor:
+                                    MaterialStateProperty.resolveWith(getColor),
+                                value: isLimited,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isLimited = value!;
+                                  });
+                                },
                               ),
+                              Text(
+                                'Check to display Author information',
+                                style: Styles.headLineStyle3
+                                    .copyWith(color: Colors.black),
+                              )
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(13.0),
@@ -379,17 +374,18 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
-                                  ),),
+                                  ),
+                                ),
                               ),
                               hint: Padding(
                                 padding: const EdgeInsets.all(11.0),
@@ -398,23 +394,20 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme
-                                        .of(context)
-                                        .hintColor,
+                                    color: Theme.of(context).hintColor,
                                   ),
                                 ),
                               ),
                               items: levels
-                                  .map((item) =>
-                                  DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ))
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
                                   .toList(),
                               value: level,
                               onChanged: (value) {
@@ -422,13 +415,12 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   level = value as String;
                                 });
                               },
-                              buttonHeight: 40,
-                              buttonWidth: 240,
-                              itemHeight: 40,
+                              // buttonHeight: 40,
+                              // buttonWidth: 240,
+                              // itemHeight: 40,
                             ),
                           ),
                         ),
-            
                         Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: DropdownButtonHideUnderline(
@@ -438,17 +430,18 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
-                                  ),),
+                                  ),
+                                ),
                               ),
                               hint: Padding(
                                 padding: const EdgeInsets.all(11.0),
@@ -457,23 +450,20 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme
-                                        .of(context)
-                                        .hintColor,
+                                    color: Theme.of(context).hintColor,
                                   ),
                                 ),
                               ),
                               items: categories
-                                  .map((item) =>
-                                  DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ))
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
                                   .toList(),
                               value: category,
                               onChanged: (value) {
@@ -481,13 +471,12 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   category = value as String;
                                 });
                               },
-                              buttonHeight: 40,
-                              buttonWidth: 240,
-                              itemHeight: 40,
+                              // buttonHeight: 40,
+                              // buttonWidth: 240,
+                              // itemHeight: 40,
                             ),
                           ),
                         ),
-            
                         Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: TextFormField(
@@ -495,18 +484,19 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               labelText: 'Description',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
-                                ),),
-                              labelStyle: TextStyle(
+                                ),
+                              ),
+                              labelStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10.0,
                               ),
@@ -527,17 +517,18 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                 contentPadding: EdgeInsets.zero,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.lightGreen,
                                     width: 2.0,
-                                  ),),
+                                  ),
+                                ),
                               ),
                               hint: Padding(
                                 padding: const EdgeInsets.all(11.0),
@@ -546,23 +537,20 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme
-                                        .of(context)
-                                        .hintColor,
+                                    color: Theme.of(context).hintColor,
                                   ),
                                 ),
                               ),
                               items: durations
-                                  .map((item) =>
-                                  DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ))
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
                                   .toList(),
                               value: duration,
                               onChanged: (value) {
@@ -570,13 +558,12 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   duration = value as String;
                                 });
                               },
-                              buttonHeight: 40,
-                              buttonWidth: 240,
-                              itemHeight: 40,
+                              // buttonHeight: 40,
+                              // buttonWidth: 240,
+                              // itemHeight: 40,
                             ),
                           ),
                         ),
-            
                         Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: TextFormField(
@@ -584,18 +571,19 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               labelText: 'Distance(KM)',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.lightGreen,
                                   width: 2.0,
-                                ),),
-                              labelStyle: TextStyle(
+                                ),
+                              ),
+                              labelStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10.0,
                               ),
@@ -605,21 +593,23 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                             },
                           ),
                         ),
-                        
-          
-                       
-                        Padding(padding: const EdgeInsets.all(13),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             Text('Limited Access', style: Styles.headLineStyle2,),
-                            Row(
-                              children: [
-                                Checkbox(
+                        Padding(
+                          padding: const EdgeInsets.all(13),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Limited Access',
+                                style: Styles.headLineStyle2,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
                                     checkColor: Colors.white,
-                                    fillColor: MaterialStateProperty.resolveWith(
-                                        getColor),
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith(
+                                            getColor),
                                     value: isLimited,
                                     onChanged: (bool? value) {
                                       setState(() {
@@ -629,24 +619,31 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   ),
                                   Text(
                                     'Check if one site or more stops may not be accessible at all times of the day or year.',
-                                    style: Styles.headLineStyle4.copyWith(color: Colors.black),),
-                              ],
-                            )
-                          ],
+                                    style: Styles.headLineStyle4
+                                        .copyWith(color: Colors.black),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        ),
-                        Padding(padding: const EdgeInsets.all(13),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             Text('Park or Protected Area', style: Styles.headLineStyle2,),
-                            Row(
-                              children: [
-                                Checkbox(
+                        Padding(
+                          padding: const EdgeInsets.all(13),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Park or Protected Area',
+                                style: Styles.headLineStyle2,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
                                     checkColor: Colors.white,
-                                    fillColor: MaterialStateProperty.resolveWith(
-                                        getColor),
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith(
+                                            getColor),
                                     value: isLimited,
                                     onChanged: (bool? value) {
                                       setState(() {
@@ -656,24 +653,31 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   ),
                                   Text(
                                     'Check if one or more stops are located within a park, or reserve, or any other protected area.',
-                                    style: Styles.headLineStyle4.copyWith(color: Colors.black),)
-                              ],
-                            ),
-                          ],
+                                    style: Styles.headLineStyle4
+                                        .copyWith(color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        ),
-                        Padding(padding: const EdgeInsets.all(13),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             Text('Entrance or Admission Fees', style: Styles.headLineStyle2,),
-                            Row(
-                              children: [
-                                Checkbox(
+                        Padding(
+                          padding: const EdgeInsets.all(13),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Entrance or Admission Fees',
+                                style: Styles.headLineStyle2,
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
                                     checkColor: Colors.white,
-                                    fillColor: MaterialStateProperty.resolveWith(
-                                        getColor),
+                                    fillColor:
+                                        MaterialStateProperty.resolveWith(
+                                            getColor),
                                     value: isLimited,
                                     onChanged: (bool? value) {
                                       setState(() {
@@ -683,13 +687,15 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                                   ),
                                   Text(
                                     'Check if one or more stops have entrance/admission fees.',
-                                    style: Styles.headLineStyle4.copyWith(color: Colors.black),)
-                              ],
-                            )
-                          ],
+                                    style: Styles.headLineStyle4
+                                        .copyWith(color: Colors.black),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.all(13.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -698,8 +704,17 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               // use this button to open the multi-select dialog
                               ElevatedButton(
                                 onPressed: _showVisitPeriodOptions,
-                                style: ElevatedButton.styleFrom(side: BorderSide(width: 2, color: Colors.black,), backgroundColor: Colors.white),
-                                child:  Text('Select Visiting Periods', style: Styles.headLineStyle4.copyWith(color: Colors.black),),
+                                style: ElevatedButton.styleFrom(
+                                    side: const BorderSide(
+                                      width: 2,
+                                      color: Colors.black,
+                                    ),
+                                    backgroundColor: Colors.white),
+                                child: Text(
+                                  'Select Visiting Periods',
+                                  style: Styles.headLineStyle4
+                                      .copyWith(color: Colors.black),
+                                ),
                               ),
                               // const Gap(3),
                               const Divider(
@@ -707,47 +722,45 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                               ),
                               // display selected items
                               Wrap(
-                                children: _VisitPeriods
-                                    .map((e) => Chip(
-                                          label: Text(e),
-                                        ))
-                                    .toList(),
+                                children: _VisitPeriods.map((e) => Chip(
+                                      label: Text(e),
+                                    )).toList(),
                               )
                             ],
                           ),
                         ),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
                               itemPhotosWidgetList.isEmpty
-                  ? 
-                  // Center(
-                  //     child: MaterialButton(
-                  //       onPressed: pickPhotoFromGallery,
-                  //       child: Container(
-                  //         alignment: Alignment.bottomCenter,
-                  //         child: Center(
-                  //           child: Image.network(
-                  //             "https://static.thenounproject.com/png/3322766-200.png",
-                  //             height: 100.0,
-                  //             width: 100.0,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   )
-                  dottedBorder(color: Colors.black)
-                  : SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Wrap(
-                        spacing: 5.0,
-                        direction: Axis.horizontal,
-                        children: itemPhotosWidgetList,
-                        alignment: WrapAlignment.spaceEvenly,
-                        runSpacing: 10.0,
-                      ),
-                    ),
+                                  ?
+                                  // Center(
+                                  //     child: MaterialButton(
+                                  //       onPressed: pickPhotoFromGallery,
+                                  //       child: Container(
+                                  //         alignment: Alignment.bottomCenter,
+                                  //         child: Center(
+                                  //           child: Image.network(
+                                  //             "https://static.thenounproject.com/png/3322766-200.png",
+                                  //             height: 100.0,
+                                  //             width: 100.0,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   )
+                                  dottedBorder(color: Colors.black)
+                                  : SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Wrap(
+                                        spacing: 5.0,
+                                        direction: Axis.horizontal,
+                                        alignment: WrapAlignment.spaceEvenly,
+                                        runSpacing: 10.0,
+                                        children: itemPhotosWidgetList,
+                                      ),
+                                    ),
                             ],
                           ),
                         ),
@@ -755,21 +768,20 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
                           padding: const EdgeInsets.all(13.0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.lightGreen,),
+                              backgroundColor: Colors.lightGreen,
+                            ),
                             //color: Colors.blue,
                             onPressed: () {
-                               upload();
+                              upload();
                             },
-                            child: Text("Click to Create"),
+                            child: const Text("Click to Create"),
                           ),
                         ),
                       ],
                     ),
                   ),
-            
                 ),
               ),
-          
             ],
           ),
         ),
@@ -777,11 +789,11 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
     );
   }
 
-    addImage() {
+  addImage() {
     for (var bytes in photo!) {
       itemPhotosWidgetList.add(Padding(
         padding: const EdgeInsets.all(1.0),
-        child: Container(
+        child: SizedBox(
           height: 90.0,
           child: AspectRatio(
             aspectRatio: 16 / 9,
@@ -833,7 +845,7 @@ class _CreateFieldTripState extends State<CreateFieldTrip> {
     return productId;
   }
 
-Widget dottedBorder({
+  Widget dottedBorder({
     required Color color,
   }) {
     return Padding(
@@ -860,7 +872,7 @@ Widget dottedBorder({
                     onPressed: (() {
                       pickPhotoFromGallery();
                     }),
-                    child: Text(
+                    child: const Text(
                       'Choose an image',
                       // style: color,
                       // color: Colors.blue,
