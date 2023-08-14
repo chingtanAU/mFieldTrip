@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -26,7 +28,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentification();
+    checkAuthentification();
   }
 
   login() async {
@@ -48,14 +50,14 @@ class _LoginState extends State<Login> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('ERROR'),
+            title: const Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'))
+                  child: const Text('OK'))
             ],
           );
         });
@@ -74,16 +76,16 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(40.0),
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 35.0),
-                  Container(
+                  const SizedBox(height: 35.0),
+                  const SizedBox(
                     height: 70,
                     child: Image(
                       image: AssetImage("images/logouni.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Container(
+                  const SizedBox(height: 20),
+                  const SizedBox(
                     height: 250,
                     child: Image(
                       image: AssetImage("images/logo.png"),
@@ -101,8 +103,9 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                                 validator: (input) {
                                   if (input!.isEmpty) return 'Enter Email';
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     labelText: 'Email',
                                     prefixIcon: Icon(Icons.email)),
 
@@ -111,17 +114,20 @@ class _LoginState extends State<Login> {
                           Container(
                             child: TextFormField(
                                 validator: (input) {
-                                  if (input!.length < 6)
+                                  if (input!.length < 6) {
                                     return 'Provide Minimum 6 Character';
+                                  return null;
+                                  }
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Password',
                                   prefixIcon: Icon(Icons.lock),
                                 ),
                                 obscureText: true,
                                 onSaved: (input) => _password = input!),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           ElevatedButton(
                             style: ButtonStyle(shape:MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -131,7 +137,7 @@ class _LoginState extends State<Login> {
                     ),
                             // padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
                             onPressed: login,
-                            child: Text('LOGIN',
+                            child: const Text('LOGIN',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0,
@@ -145,10 +151,10 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   GestureDetector(
-                    child: Text('Create an Account?',style: TextStyle(fontSize: 15),),
                     onTap: navigateToSignUp,
+                    child: const Text('Create an Account?',style: TextStyle(fontSize: 15),),
                   )
                 ],
               ),

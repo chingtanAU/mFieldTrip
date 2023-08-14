@@ -50,7 +50,7 @@ class _SoloFieldTripState extends State<SoloFieldTrip> {
       decoration: BoxDecoration(
             color: Styles.primaryColor,
             borderRadius: BorderRadius.circular(24),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.grey,
                 blurRadius: 20,
